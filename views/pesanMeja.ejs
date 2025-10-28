@@ -1,0 +1,34 @@
+<section class="section">
+	<div class="section-header">
+		<h1>Pemesanan Meja</h1>
+	</div>
+	<div class="section-body">
+		<div class="card">
+			<div class="card-header">
+				<h5>Data Meja</h5>
+			</div>
+			<div class="card-body">
+				<div class="row">
+					<% dataMejas.forEach((item)=> { %>
+					<div class="col-md-4">
+						<div class="card card-primary shadow">
+							<div class="card-header">
+								<h4>Nomor Meja <%= item.nomor_meja %></h4>
+								<div class="card-header-action">
+									<a href="/pesan-meja/<%= item.id%>" class="btn btn-primary <% if(item.status == 1) { %>disabled<% } %>"> Pesan </a>
+								</div>
+							</div>
+							<div class="card-body">
+								<span class="badge badge-<% if(item.status == 0) { %>success<% } else { %>warning<% } %>">
+                                    <% if(item.status == 0) { %>meja tersedia<% } else { %>sudah dipesan<% } %>
+                                </span>
+								<span class="badge badge-info"><%= item.kapasitas %> orang</span>
+							</div>
+						</div>
+					</div>
+					<% }); %>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

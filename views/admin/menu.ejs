@@ -1,0 +1,133 @@
+<section class="section">
+	<div class="section-header">
+		<h1>Kelola Menu</h1>
+	</div>
+	<div class="section-body">
+		<div class="card">
+			<div class="card-header">
+				<div class="container-fluid d-flex justify-content-between">
+					<div class="col-6">
+						<h4>List Data Menu</h4>
+					</div>
+					<div class="col-6 d-flex justify-content-end">
+						<button
+							class="btn btn-primary btn-lg"
+							data-toggle="modal"
+							data-target="#exampleModal"
+						>
+							Tambah Menu
+						</button>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<!-- body card -->
+				<div class="table-responsive">
+					<table class="table table-bordered table-md">
+						<tr>
+							<th>#</th>
+							<th>Nama Menu</th>
+							<th>Jenis Menu</th>
+							<th>Harga</th>
+							<th>Opsi</th>
+						</tr>
+						<% dataMenus.forEach((item, index)=> { %>
+						<tr>
+							<td><%= index + 1 %></td>
+							<td><%= item.nama_menu %></td>
+							<td><%= item.jenis_menu %></td>
+							<td>Rp.<%= item.harga %></td>
+							<td>
+								<a href="" onclick="deleteMenu('<%= item.id %>')" class="btn btn-danger btn-sm">Hapus</a>
+								<a href="/menu/<%= item.id %>" class="btn btn-info btn-sm">Edit</a>
+							</td>
+						</tr>
+						<% }); %>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- Modal Bootstrap -->
+<div class="modal" id="exampleModal" tabindex="-1">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Tambah Menu</h5>
+				<button
+					type="button"
+					class="close"
+					data-dismiss="modal"
+					aria-label="Close"
+				>
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form id="menuForm">
+					<div class="form-group">
+						<label>Nama Menu</label>
+						<input type="text" name="nama_menu" class="form-control" required />
+					</div>
+					<div class="form-group">
+						<label>Jenis Menu</label>
+						<select name="jenis_menu" class="form-control" required>
+							<option value="Makanan">Makanan</option>
+							<option value="Minuman">Minuman</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label>Harga Menu</label>
+						<input type="number" name="harga" class="form-control" required />
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">
+					Close
+				</button>
+				<button type="button" class="btn btn-primary" id="save">
+					Simpan
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<!-- Script For Axios API -->
+<script>
+	document.getElementById('save').onclick = () => {
+		const formData = new FormData(document.getElementById('menuForm'));
+
+		axios({
+			method: 'post',
+			url: '/api/menu',
+			data: Object.fromEntries(formData),
+		})
+			.then(result => {
+				alert('Berhasil menyimpan data!');
+	console.log(result);
+				window.location.reload();
+			})
+			.catch(err => {
+				alert('Error: ' + err);
+			});
+	}
+
+	function deleteMenu(menuId){
+		if (confirm('Apakah Anda yakin ingin menghapus item ini?')) {
+            axios.delete(`/api/menu/${menuId}`)
+                .then(response => {
+                    alert('Berhasil menghapus data!');
+                    window.location.reload();
+                })
+                .catch(error => {
+                    alert('Error: ' + error);
+                });
+        }
+	}
+</script>
+

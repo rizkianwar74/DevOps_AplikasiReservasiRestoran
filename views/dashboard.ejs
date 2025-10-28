@@ -1,0 +1,55 @@
+<section class="section">
+  <div class="section-header">
+    <h1>Selamat Datang User!</h1>
+	</div>
+	<div class="section-body">
+    <div class="card">
+      <div class="card-header">
+        <h5>List Reservasi Meja</h5>
+			</div>
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table table-bordered table-md text-center">
+						<thead>
+							<tr>
+                <th>#</th>
+								<th>Nomor Meja</th>
+								<th>Tanggal</th>
+								<th>Waktu</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+              <!-- foreach -->
+							<% dataReservasi.forEach((item,index)=> { %>
+                <tr>
+                  <td><%= index + 1 %></td>
+                  <td><%= item.meja.nomor_meja %></td>
+                  <td><%= item.tanggal %></td>
+                <td><%= item.waktu %> WIB</td>
+                <td><a href="" onclick="deleteReser('<%= item.id %>')" class="btn btn-danger btn-sm">batal reservasi</a></td>
+              </tr>
+							<% }) %>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+function deleteReser(resId){
+  if (confirm('Apakah Anda yakin membatalkan pesanan?')) {
+          axios.delete(`/api/pesan-meja/${resId}`)
+              .then(response => {
+                  alert('Berhasil menghapus data!');
+                  window.location.reload();
+              })
+              .catch(error => {
+                  alert('Error: ' + error);
+              });
+      }
+}
+</script>

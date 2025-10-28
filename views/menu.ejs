@@ -1,0 +1,112 @@
+<section class="section">
+	<div class="section-header">
+		<h1>Menu</h1>
+	</div>
+	<div class="section-body">
+		<div class="card">
+			<div class="card-header">
+				<h4>Daftar Menu Makanan</h4>
+			</div>
+			<div class="card-body">
+				<div class="row">
+					<% makanan.forEach((item,index)=> { %>
+					<div class="col-sm-4">
+						<article class="article article-style-c shadow">
+							<div class="article-header">
+								<div
+									class="article-image"
+									data-background="../images/meal-<%= index + 1 %>.jpg"
+								></div>
+							</div>
+							<div class="article-details">
+								<div class="article-title">
+									<h2 class="text-center">
+										<a href="#"><%= item.nama_menu %> - Rp.<%= item.harga %></a>
+									</h2>
+								</div>
+                <div class="container text-center">
+                  <a href="" class="btn btn-primary btn-md border" style="text-align: center;">Pesan</a>
+                </div>
+								<div class="article-user">
+                  <p class="text-center mt-2">Beri Rating</p>
+									<div class="rating-css d-flex justify-content-center">
+										<div class="star-icon">
+											<input type="radio" name="rating1" id="rating1" />
+											<label for="rating1" class="fa fa-star"></label>
+
+											<input type="radio" name="rating2" id="rating2" />
+											<label for="rating2" class="fa fa-star"></label>
+
+											<input type="radio" name="rating3" id="rating3" />
+											<label for="rating3" class="fa fa-star"></label>
+
+											<input type="radio" name="rating4" id="rating4" />
+											<label for="rating4" class="fa fa-star"></label>
+
+											<input type="radio" name="rating5" id="rating5" />
+											<label for="rating5" class="fa fa-star"></label>
+										</div>
+									</div>
+								</div>
+							</div>
+						</article>
+					</div>
+					<% }) %>
+				</div>
+			</div>
+		</div>
+
+		<div class="card">
+			<div class="card-header">
+				<h4>Daftar Menu Minuman</h4>
+			</div>
+			<div class="card-body">
+				<div class="row">
+					<% minuman.forEach((item,index)=> { %>
+					<div class="col-sm-4">
+						<article class="article article-style-c shadow">
+							<div class="article-header">
+								<div
+									class="article-image"
+									data-background="../images/drink.jpg"
+								></div>
+							</div>
+							<div class="article-details">
+								<div class="article-title">
+									<h2 class="text-center">
+										<a href="#"><%= item.nama_menu %> - Rp.<%= item.harga %></a>
+									</h2>
+								</div>
+                <div class="container text-center">
+                  <a href="" class="btn btn-primary btn-md border" style="text-align: center;">Pesan</a>
+                </div>
+								<div class="article-user">
+                  <p class="text-center mt-2">Beri Rating</p>
+									<div class="rating-css d-flex justify-content-center">
+										<div class="star-icon">
+											<input type="radio" name="rating1" id="rating1" />
+											<label for="rating1" class="fa fa-star"></label>
+
+											<input type="radio" name="rating2" id="rating2" />
+											<label for="rating2" class="fa fa-star"></label>
+
+											<input type="radio" name="rating3" id="rating3" />
+											<label for="rating3" class="fa fa-star"></label>
+
+											<input type="radio" name="rating4" id="rating4" />
+											<label for="rating4" class="fa fa-star"></label>
+
+											<input type="radio" name="rating5" id="rating5" />
+											<label for="rating5" class="fa fa-star"></label>
+										</div>
+									</div>
+								</div>
+							</div>
+						</article>
+					</div>
+					<% }) %>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

@@ -1,0 +1,74 @@
+<section class="section">
+	<div class="section-header">
+		<h1>Review Meja</h1>
+	</div>
+	<div class="section-body">
+		<div class="card">
+			<div class="card-header">
+				<h4>Buat Reservasi Meja <%= meja.nomor_meja %></h4>
+			</div>
+			<div class="card-body">
+				<form id="menuForm">
+					<input type="hidden" name="user_id" value="<%= user.id %>" />
+					<input type="hidden" name="meja_id" value="<%= meja.id %>" />
+
+					<div class="form-group">
+						<label>Tanggal Pesan</label>
+						<input type="date" name="tanggal" class="form-control" required />
+					</div>
+					<div class="form-group">
+						<label>Jam Pesan</label>
+						<input type="time" name="waktu" class="form-control" required />
+					</div>
+					<div class="form-group">
+						<label>Durasi (menit)</label>
+						<input type="number" name="durasi" class="form-control" required />
+					</div>
+				</form>
+				<!-- submit update data button -->
+				<div class="form-group">
+					<div class="row d-flex justify-content-center">
+						<div class="col-4 text-center">
+							<a href="/list-meja" style="width: 100%" class="btn btn-info"
+								>Kembali</a
+							>
+						</div>
+						<div class="col-4 text-center">
+							<button
+								id="order"
+								type="submit"
+								style="width: 100%"
+								class="btn btn-primary"
+							>
+								Pesan
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<!-- Script For Axios API -->
+<script>
+	document.getElementById('order').onclick = () => {
+		const formData = new FormData(document.getElementById('menuForm'));
+		axios({
+			method: 'post',
+			url: '/api/pesan-meja',
+			data: Object.fromEntries(formData),
+		})
+			.then(result => {
+				alert('Berhasil melakukan pesanan!');
+				window.location.href = '/dashboard';
+			})
+			.catch(err => {
+				alert('Error: ' + err);
+			});
+
+        
+            console.log(formData)
+	};
+</script>
