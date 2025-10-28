@@ -1,0 +1,25 @@
+.rating-css {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+  .star-icon {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .star-icon input {
+    display: none;
+  }
+  
+  .star-icon label {
+    font-size: 24px;
+    color: #ccc;
+    cursor: pointer;
+  }
+  
+  .star-icon label:hover,
+  .star-icon input:checked + label {
+    color: #ffc107;
+  }
