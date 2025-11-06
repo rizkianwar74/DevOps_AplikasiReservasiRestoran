@@ -1,0 +1,26 @@
+@"
+node_modules
+npm-debug.log
+yarn-error.log
+package-lock.json
+.env
+.env.local
+.git
+.gitignore
+.vscode
+.idea
+.DS_Store
+Thumbs.db
+Dockerfile
+docker-compose.yml
+.dockerignore
+README.md
+ISSUES_PLAN.md
+*.md
+logs
+*.log
+coverage
+tmp
+temp
+*.tmp
+"@ | Out-File -FilePath .dockerignore -Encoding utf8

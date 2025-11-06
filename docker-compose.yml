@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  # MySQL Database Service
+  mysql-db:
+    image: mysql:8.0
+    container_name: resto_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-root123}
+      MYSQL_DATABASE: ${DB_NAME:-resto_db}
+      MYSQL_USER: ${DB_USER:-resto_user}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-root123}
+    ports:
+      - "${DB_PORT:-3306}:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql:ro
+    networks:
+      - resto-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${DB_PASSWORD:-root123}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  # Node.js Application Service
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: resto_app
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT:-3000}:3000"
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      DB_HOST: mysql-db
+      DB_USER: ${DB_USER:-resto_user}
+      DB_PASSWORD: ${DB_PASSWORD:-root123}
+      DB_NAME: ${DB_NAME:-resto_db}
+      DB_DIALECT: mysql
+      SESSION_SECRET: ${SESSION_SECRET:-secret-key-change-in-production}
+    depends_on:
+      mysql-db:
+        condition: service_healthy
+    volumes:
+      - ./public:/app/public
+      - ./views:/app/views
+    networks:
+      - resto-network
+    command: sh -c "npx sequelize-cli db:migrate && node server.js"
+
+networks:
+  resto-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+    driver: local
