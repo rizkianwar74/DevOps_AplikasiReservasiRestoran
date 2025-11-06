@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "root",
-    "password": "",
-    "database": "resto-crud",
-    "host": "127.0.0.1",
+    "username": "resto_user",
+    "password": "root123",
+    "database": "resto_db",
+    "host": "mysql-db",
     "dialect": "mysql"
   }
 }
